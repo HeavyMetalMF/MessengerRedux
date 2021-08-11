@@ -1,0 +1,38 @@
+.dialogs{
+    /*display: flex;*/
+    /*justify-content: space-around;*/
+
+    display: grid;
+    grid-template-columns: 4fr 6fr;
+}
+
+.dialogs_items{
+    padding: 10px;
+}
+
+.item{
+    display: flex;
+    align-items: center;
+}
+.minAva{
+    border-radius: 50%;
+}
+
+.mes{
+    margin-left: 15px;
+}
+.item a{
+    text-decoration: none;
+}
+
+.dialogs_items .active{
+    color: gold;
+}
+
+.messages{
+    padding: 10px;
+}
+
+.message{
+
+}
