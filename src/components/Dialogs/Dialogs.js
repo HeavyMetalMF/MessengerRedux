@@ -1,26 +1,30 @@
 import c from "./Dialogs.module.css";
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
+import {Redirect} from "react-router-dom";
 
 
-const Dialogs = (prop) => {
-    // console.log(prop)
-    let state = prop.messagesPage;
+const Dialogs = (props) => {
+    // console.log(props)
+    let state = props.messagesPage;
     let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id}/>)
 
     let messagesElements = state.messages.map(m => <Message message={m.message} key={m.id}/>)
     let messageText = state.messageText;
 
     let onSendMessageClick = () => {
-        prop.sendMessage();
-        // prop.store.dispatch(sendMessageCreator())
+        props.sendMessage();
+        // props.store.dispatch(sendMessageCreator())
     }
     let onNewMessageChange = (e) => {
         let text = e.target.value;
-        // prop.store.dispatch(updateMessageCreator(text))
-        prop.updateMessageCreator(text);
+        // props.store.dispatch(updateMessageCreator(text))
+        props.updateMessageCreator(text);
     }
 
+    if (!props.isAuth){
+        return <Redirect to={'/login'}/>
+    }
     return(
         <div className={c.dialogs}>
             <div className={c.dialogs_items}>

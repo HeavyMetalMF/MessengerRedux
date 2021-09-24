@@ -1,14 +1,20 @@
+import {usersAPI} from "../api/api";
+
 const FOLLOW = 'follow';
 const UNFOLLOW = 'unfollow';
 const SET_USERS = 'setUsers';
+const SET_CURRENT_PAGE = 'setCurrentPage';
+const SET_TOTAL_USERS_COUNT = 'setTotalCount';
+const TOGGLE_IS_FETCHING = 'toggleIsFetching';
+const TOGGLE_IS_FOLLOWING = 'toggleIsFollowing';
 
 let initialState = {
-    users : [
-        // {id: 1, photoURL: 'https://whatsism.com/uploads/posts/2018-07/1530546590_tx962vdsiqi.jpg', followed: false, fullname: 'Roman', status: 'I am a boss Roman', location: {city: 'Minsk', country: 'Belarus'}},
-        // {id: 2, photoURL: 'https://whatsism.com/uploads/posts/2018-07/1530546590_tx962vdsiqi.jpg', followed: true, fullname: 'Alina', status: 'I am a boss Alina', location: {city: 'Moscow', country: 'Russia'}},
-        // {id: 3, photoURL: 'https://whatsism.com/uploads/posts/2018-07/1530546590_tx962vdsiqi.jpg', followed: false, fullname: 'Nastya', status: 'I am a boss Nastya', location: {city: 'Kiev', country: 'Ukraine'}},
-        // {id: 4, photoURL: 'https://whatsism.com/uploads/posts/2018-07/1530546590_tx962vdsiqi.jpg', followed: false, fullname: 'Natalya', status: 'I am a boss Natalya', location: {city: 'Kassel', country: 'Germany'}},
-    ]
+    users : [],
+    pageSize: 5,
+    totalUsersCount: 0,
+    currentPage: 1,
+    isFetching: true,
+    followingInProgress: [2,3],
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -36,29 +42,114 @@ const usersReducer = (state = initialState, action) => {
                 }),
             }
         case SET_USERS:
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: [...action.users]}
+
+        case SET_CURRENT_PAGE:
+            return {...state, currentPage: action.currentPage}
+
+        case SET_TOTAL_USERS_COUNT:
+            return {...state, totalUsersCount: action.totalUsersCount}
+
+        case TOGGLE_IS_FETCHING:
+            return {...state, isFetching: action.isFetching}
+
+        case TOGGLE_IS_FOLLOWING:
+            return {
+                ...state,
+                followingInProgress: action.followingInProgress
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id !== action.userId)
+            }
+
 
         default:
             return state;
     }
 }
 
-export const followAC = (ID) => {
+export const  followSuccess = (ID) => {
     return {
         type: FOLLOW,
         userId: ID
     }
 }
-export const  unfollowAC = (ID) => {
+export const  unfollowSuccess = (ID) => {
     return {
         type: UNFOLLOW,
         userId: ID
     }
 }
-export const  setUsersAC = (users) => {
+export const  setUsers = (users) => {
     return {
         type: SET_USERS,
         users: users
+    }
+}
+export const  setCurrentPage = (currentPage) => {
+    return {
+        type: SET_CURRENT_PAGE,
+        currentPage: currentPage
+    }
+}
+export const  setTotalUsersCount = (totalUsersCount) => {
+    return {
+        type: SET_TOTAL_USERS_COUNT,
+        totalUsersCount: totalUsersCount
+    }
+}
+export const  setIsFetching = (isFetching) => {
+    return {
+        type: TOGGLE_IS_FETCHING,
+        isFetching: isFetching
+    }
+}
+export const  setFollowingProgress = (following, userId) => {
+    return {
+        type: TOGGLE_IS_FOLLOWING,
+        followingInProgress: following,
+        userId: userId,
+    }
+}
+
+export const getUsers = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(setIsFetching(true));
+
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(data => {
+                // console.log(data)
+
+                dispatch(setIsFetching(false));
+                dispatch(setUsers(data.items));
+                dispatch(setTotalUsersCount(data.totalCount));
+            })
+    }
+}
+
+export const follow = (userId) => {
+    return (dispatch) => {
+        dispatch(setFollowingProgress(true, userId));
+        usersAPI.follow(userId).then(
+            data => {
+                if (data.resultCode === 0){
+                    dispatch(followSuccess(userId));
+                }
+                dispatch(setFollowingProgress(false, userId));
+            }
+        )
+    }
+}
+export const unfollow = (userId) => {
+    return (dispatch) => {
+        dispatch(setFollowingProgress(true, userId));
+        usersAPI.unfollow(userId).then(
+            data => {
+                if (data.resultCode === 0){
+                    dispatch(unfollowSuccess(userId));
+                }
+                dispatch(setFollowingProgress(false, userId));
+            }
+        )
     }
 }
 
