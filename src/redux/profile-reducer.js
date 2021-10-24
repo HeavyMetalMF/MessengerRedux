@@ -2,7 +2,6 @@ import {profileAPI, usersAPI} from "../api/api";
 import {setFollowingProgress, unfollowSuccess} from "./users-reducer";
 
 const ADD_POST = 'add-post';
-const UPDATE_TEXT = 'update-text';
 const SET_USER_PROFILE = 'SetUserProfile';
 const SET_STATUS = 'SetStatus';
 
@@ -19,7 +18,6 @@ let initialState = {
             likes: 9
         },
     ],
-    newPostText: 'romanPrivet',
     profile: null,
     status: '',
 };
@@ -29,19 +27,13 @@ const profileReducer = (state = initialState, action) => {
         case ADD_POST: {
             let newPost = {
                 id: 5,
-                message: state.newPostText,
+                message: action.postText,
                 likes: 0
             };
             return {
                 ...state,
                 posts: [...state.posts, newPost],
                 newPostText: ''
-            };
-        }
-        case UPDATE_TEXT:{
-            return {
-                ...state,
-                newPostText: action.text
             };
         }
         case SET_USER_PROFILE:{
@@ -61,17 +53,13 @@ const profileReducer = (state = initialState, action) => {
     }
 }
 
-export const addPostActionCreator = () => {
+export const addPostActionCreator = (postText) => {
     return {
-        type: ADD_POST
+        type: ADD_POST,
+        postText: postText
     }
 }
-export const updateTextActionCreator = (text) => {
-    return {
-        type: UPDATE_TEXT,
-        text: text
-    }
-}
+
 export const setUsersProfile = (profile) => {
     return {
         type: SET_USER_PROFILE,

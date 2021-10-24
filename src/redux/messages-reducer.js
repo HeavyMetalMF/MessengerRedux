@@ -1,4 +1,3 @@
-const UPDATE_MESSAGE = 'update-message';
 const SEND_MESSAGE = 'send-message';
 
 let initialState = {
@@ -46,21 +45,15 @@ let initialState = {
             message: 'Сообщение 5'
         },
     ],
-    messageText: 'text',
+
 };
 
 const messagesReducer = (state = initialState, action) => {
     switch (action.type) {
-        case UPDATE_MESSAGE:
-            return {
-                ...state,
-                messageText: action.text
-            };
         case SEND_MESSAGE:
-            let message = state.messageText;
+            let message = action.messageBody;
             return {
                 ...state,
-                messageText: '',
                 messages: [...state.messages, {id: 6, message: message}],
             };
             // stateCopy.messageText = '';
@@ -72,16 +65,10 @@ const messagesReducer = (state = initialState, action) => {
 
 }
 
-export const  updateMessageCreator = (text) => {
-    return {
-        type: UPDATE_MESSAGE,
-        text: text
-    }
-}
-export const  sendMessageCreator = (text) => {
+export const  sendMessageCreator = (messageBody) => {
     return {
         type: SEND_MESSAGE,
-        text: text
+        messageBody: messageBody
     }
 }
 export default messagesReducer;
