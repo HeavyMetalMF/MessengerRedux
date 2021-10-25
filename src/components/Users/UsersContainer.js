@@ -7,10 +7,8 @@ import {
     setFollowingProgress,
     unfollow
 } from "../../redux/users-reducer";
-import * as axios from "axios";
 import Users from "./Users";
 import Preloader from "../common/preloader/Preloader";
-import {usersAPI} from "../../api/api";
 import {withAuthRedirect} from "../../Hoc/withAuthRedirect";
 import {compose} from "redux";
 
@@ -82,7 +80,7 @@ let mapStateToProps = (state) => {
 let AuthRedirectComponent = withAuthRedirect(UsersContainer);
 
 export default compose(
-    withAuthRedirect,
+    //withAuthRedirect,
     connect(mapStateToProps, {
         follow,
         unfollow,

@@ -42,7 +42,7 @@ export const  setAuthUserData = (userId, email, login, isAuth ) => {
 }
 export const getAuthUserData = () => {
     return (dispatch) => {
-        authAPI.me()
+        return authAPI.me()
             .then(response => {
                 if (response.data.resultCode === 0){
                     let {id, email, login} = response.data.data;
@@ -60,6 +60,7 @@ export const login = (email, password, rememberMe ) => {
                 } else {
                     let message = response.data.messages[0];
                     let action = stopSubmit('login', {_error: message});
+                    debugger;
                     dispatch(action);
                 }
             })
