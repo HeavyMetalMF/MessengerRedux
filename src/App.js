@@ -8,7 +8,6 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {connect} from "react-redux";
-import {getAuthUserData} from "./redux/auth-reducer";
 import appReducer, {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/preloader/Preloader";
 
