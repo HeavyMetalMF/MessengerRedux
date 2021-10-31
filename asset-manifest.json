@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/watOfSamurai/static/css/main.4a98b8ef.chunk.css",
-    "main.js": "/watOfSamurai/static/js/main.a8bd7116.chunk.js",
-    "main.js.map": "/watOfSamurai/static/js/main.a8bd7116.chunk.js.map",
+    "main.js": "/watOfSamurai/static/js/main.2151bad1.chunk.js",
+    "main.js.map": "/watOfSamurai/static/js/main.2151bad1.chunk.js.map",
     "runtime-main.js": "/watOfSamurai/static/js/runtime-main.5548352e.js",
     "runtime-main.js.map": "/watOfSamurai/static/js/runtime-main.5548352e.js.map",
     "static/js/2.633263e9.chunk.js": "/watOfSamurai/static/js/2.633263e9.chunk.js",
@@ -25,6 +25,6 @@
     "static/js/runtime-main.5548352e.js",
     "static/js/2.633263e9.chunk.js",
     "static/css/main.4a98b8ef.chunk.css",
-    "static/js/main.a8bd7116.chunk.js"
+    "static/js/main.2151bad1.chunk.js"
   ]
 }
