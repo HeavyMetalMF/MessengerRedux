@@ -8,7 +8,7 @@ import {Redirect} from "react-router-dom";
 import c from './../common/FormsControls/FormsControls.module.css'
 
 const LoginForm = (props) => {
-    console.log(props)
+    // console.log(props)
     return (
             <form onSubmit={props.handleSubmit}>
                 <div>

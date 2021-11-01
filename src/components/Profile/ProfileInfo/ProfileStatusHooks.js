@@ -1,11 +1,14 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import c from './ProfileInfo.module.css';
 import Preloader from "../../common/preloader/Preloader";
 
 const ProfileStatusHooks = (props) => {
-    debugger
     let [editMode, setEditMode] = useState(false);
     let [status, setStatus] = useState(props.status);
+
+    useEffect(() => {
+        setStatus(props.status)
+    }, [props.status]);
 
     const activateEditMode = () => {
         setEditMode(true);
@@ -24,7 +27,7 @@ const ProfileStatusHooks = (props) => {
         <div>
             {!editMode &&
             <div>
-                <span onDoubleClick={activateEditMode} >{props.status || 'No status' }</span>
+                <span onDoubleClick={activateEditMode} >{ props.status || 'No status' }</span>
             </div>
             }
 
