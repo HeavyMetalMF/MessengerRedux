@@ -1,0 +1,2 @@
+(this["webpackJsonplearn-react"]=this["webpackJsonplearn-react"]||[]).push([[4],{297:function(e,s,t){"use strict";t.r(s);var a=t(106),n=t(137),c=t(12),r=(t(1),t(119)),u=t(10);s.default=Object(u.d)(Object(c.b)((function(e){return{messagesPage:e.messagesPage}}),(function(e){return{sendMessage:function(s){e(Object(a.b)(s))}}})),r.a)(n.a)}}]);
+//# sourceMappingURL=4.f7d9b100.chunk.js.map
